@@ -80,7 +80,9 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
     if (minOf(a, b, c) <= minOf(r, s)) {
-        if (a + b <= r + s || a + c <= r + s || b + c <= r + s) {
+        if (a + b <= r + s && maxOf(a, b) <= maxOf(r, s) ||
+                a + c <= r + s && maxOf(a, c) <= maxOf(r, s) ||
+                b + c <= r + s && maxOf(b, c) <= maxOf(r, s)) {
             return true
         }
         return false

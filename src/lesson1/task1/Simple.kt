@@ -3,6 +3,8 @@
 package lesson1.task1
 
 import lesson2.task1.triangleKind
+import lesson3.task1.fibSequenceDigit
+import lesson3.task1.isCoPrime
 import kotlin.math.*
 
 /**
@@ -50,15 +52,9 @@ fun quadraticRootProduct(a: Double, b: Double, c: Double): Double {
  * Пример главной функции
  */
 fun main(args: Array<String>) {
-    println(numberRevert(451))
-    println(seconds(8, 20, 35))
-    println(lengthInMeters(8, 2, 11))
-    println(angleInRadian(36, 14, 35))
-    println(trackLength(3.0, 0.0, 0.0, 4.0))
-    println(thirdDigit(3801))
-    println(travelMinutes(9, 25, 13, 1))
-    println(accountInThreeYears(100, 10))
+    println(isCoPrime(7, 8))
 }
+
 
 /**
  * Тривиальная

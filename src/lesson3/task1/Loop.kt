@@ -1,6 +1,8 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson3.task1
 
+import kotlin.math.min
 import kotlin.math.sqrt
 
 /**
@@ -38,7 +40,7 @@ fun isPrime(n: Int): Boolean {
  */
 fun isPerfect(n: Int): Boolean {
     var sum = 1
-    for (m in 2..n/2) {
+    for (m in 2..n / 2) {
         if (n % m > 0) continue
         sum += m
         if (sum > n) break
@@ -66,7 +68,13 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    return if (n in -9..9) {
+        1
+    } else {
+        digitNumber(n / 10) + 1
+    }
+}
 
 /**
  * Простая
@@ -74,7 +82,20 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    if (n > 2) {
+        var n1: Int = 1
+        var n2: Int = 1
+        for (i in 3..n) {
+            var m = n1 + n2
+            n1 = n2
+            n2 = m
+            if (i == n) return m
+        }
+    }
+    return 1
+}
+
 
 /**
  * Простая
@@ -82,21 +103,46 @@ fun fib(n: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    for (i in 1..(m * n) / maxOf(m, n)) {
+        if ((maxOf(m, n) * i) % m == 0 && (maxOf(m, n) * i) % n == 0)
+            return maxOf(m, n) * i
+    }
+    return 0
+}
 
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    if (n > 1) {
+        for (i in 2..n) {
+            if (n % i == 0) {
+                return i
+            }
+        }
+    }
+    return 0
+}
 
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int {
+    if (n > 1) {
+        var i = n / 2
+        do {
+            if (n % i == 0) {
+                return i
+            } else i--
+        } while (i > 0)
+    }
+    return 1
+}
 
 /**
  * Простая
@@ -105,7 +151,25 @@ fun maxDivisor(n: Int): Int = TODO()
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    if (m == 1 || n == 1) return true
+    if (m % n == 0 && n % m == 0) {
+        return false
+    } else {
+        var result: Boolean = false
+        for (i in 2..(minOf(m, n))) {
+            if (m % i == 0 && n % i == 0) {
+                return false
+            } else {
+                if (i == minOf(m, n)) {
+                    return true
+                }
+            }
+
+        }
+    }
+    return false
+}
 
 /**
  * Простая
@@ -132,7 +196,19 @@ fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var i: Int = 0
+    var y = x
+    while (y != 1) {
+        i++
+        if (y % 2 == 0) {
+            y /= 2
+        } else {
+            y = 3 * y + 1
+        }
+    }
+    return i
+}
 
 /**
  * Средняя
@@ -202,4 +278,34 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    if (n > 2) {
+        if (digitNumber(fib(n)) < 2) {
+            return fib(n)
+        } else {
+            var i = 6
+            var k = 6
+            while (k <= n) {
+                i++
+                k += digitNumber(fib(i))
+                if (k >= n) {
+                    if (k - n == 0) {
+                        return fib(i) % 10
+                    } else {
+                        for (j in 1..digitNumber(fib(i))) {
+                            if (j == k - n) {
+                                var l = 1
+                                for (q in 1..j) l *= 10
+                                val a = fib(i) % l
+                                val b = fib(i) / (l * 10)
+                                return (fib(i) - b * l * 10 - a) / l
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return 1
+}
+

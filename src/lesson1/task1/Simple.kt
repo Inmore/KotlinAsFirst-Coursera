@@ -5,6 +5,7 @@ package lesson1.task1
 import lesson2.task1.triangleKind
 import lesson3.task1.fibSequenceDigit
 import lesson3.task1.isCoPrime
+import lesson4.task1.factorize
 import kotlin.math.*
 
 /**
@@ -52,7 +53,7 @@ fun quadraticRootProduct(a: Double, b: Double, c: Double): Double {
  * Пример главной функции
  */
 fun main(args: Array<String>) {
-    println(isCoPrime(7, 8))
+    println(factorize(1073676289))
 }
 
 

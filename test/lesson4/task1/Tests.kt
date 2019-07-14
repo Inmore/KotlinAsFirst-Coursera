@@ -159,6 +159,8 @@ class Tests {
         assertEquals(listOf(2), factorize(2))
         assertEquals(listOf(3, 5, 5), factorize(75))
         assertEquals(listOf(2, 3, 3, 19), factorize(342))
+        assertEquals(listOf(7, 7, 31, 31, 151, 151), factorize(1073676289))
+
     }
 
     @Test
@@ -176,6 +178,8 @@ class Tests {
     @Tag("Normal")
     fun convert() {
         assertEquals(listOf(1), convert(1, 2))
+        assertEquals(listOf(7), convert(7, 8))
+        assertEquals(listOf(1, 0), convert(8, 8))
         assertEquals(listOf(1, 2, 1, 0), convert(100, 4))
         assertEquals(listOf(1, 3, 12), convert(250, 14))
         assertEquals(listOf(2, 14, 12), convert(1000, 19))
